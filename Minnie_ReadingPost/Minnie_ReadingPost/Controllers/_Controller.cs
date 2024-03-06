@@ -2,7 +2,7 @@
 
 namespace Minnie_ReadingPost.Controllers
 {
-    public class HomeController : Controller
+    public class _Controller : Controller
     {
         public IActionResult Index()
         {
