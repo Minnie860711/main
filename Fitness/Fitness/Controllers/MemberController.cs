@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Entity.Member;
-using NPoco.fastJSON;
-using Newtonsoft.Json;
 
 namespace Fitness.Controllers
 {
-    public class HomeController : Controller
+    public class MemberController : Controller
     {
         #region == DI注入宣告 ==
         /// <summary>
@@ -21,11 +19,11 @@ namespace Fitness.Controllers
 
         #endregion
         #region == 全域宣告 ==
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<MemberController> _logger;
 
         #endregion
         #region == 建構 ==
-        public HomeController(ILogger<HomeController> logger,
+        public MemberController(ILogger<MemberController> logger,
             MemberService MemberService)
         {
             _logger = logger;
@@ -34,56 +32,40 @@ namespace Fitness.Controllers
         }
         #endregion
 
-        /// <summary>
-        /// 首頁
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(Member_DTO ao_memberDTO)
         {
-            return View();
+            return View(ao_memberDTO);
         }
 
-        /// <summary>
-        /// 註冊登入頁面
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult SingIn()
+        [HttpGet]
+        public IActionResult Edit(long ai_memberID)
         {
-            return View();
+            Member_Filter lo_memberFilter = new Member_Filter()
+            {
+                memberID = ai_memberID
+            };
+            Member_DTO lo_result = this._MemberService.GetMember(lo_memberFilter);
+
+            return View(lo_result);
         }
 
-        /// <summary>
-        /// 註冊
-        /// </summary>
-        /// <param name="ao_memberDTO"></param>
-        /// <returns></returns>
         [HttpPost]
-        public IActionResult Register(Member_DTO ao_memberDTO)
+        public IActionResult Edit(Member_DTO ao_memberDTO)
         {
             var lo_result = this._MemberService.InsertMember(ao_memberDTO);
-            ViewBag.AlertMessage = lo_result.IsSuccess == true ? "註冊成功" : lo_result.Message;
-            return View("SingIn");
-
+            return RedirectToAction("Index");
         }
 
-        /// <summary>
-        /// 登入
-        /// </summary>
-        /// <param name="ao_memberFilter"></param>
-        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken] //4.3.6 加入Token驗證標籤
         public IActionResult Login(Member_Filter ao_memberFilter)
         {
-            //取得會員資料
             Member_DTO lo_result = this._MemberService.GetMember(ao_memberFilter);
 
-            //查無資料 => 跳回首頁
             if (lo_result == null)
             {
                 return View("Index");
             }
-            //有資料=>登入成功
             else
             {
                 #region == 生成登入驗證Cookie ==
@@ -114,8 +96,6 @@ namespace Fitness.Controllers
 
                 #endregion
             }
-
-            //跳轉至會員資料
             return RedirectToAction("Index", "Member", lo_result);
         }
 

@@ -7,3 +7,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.btn-enter {
+    background-color: #3D3BF3;
+    color: white;
+}

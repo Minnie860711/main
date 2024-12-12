@@ -2,9 +2,16 @@
 
 @{
     ViewData["Title"] = "會員註冊";
+    var ls_message = ViewBag.Message;
 }
-<h1>@ViewData["Title"]</h1>
-<hr />
+
+@if (ViewBag.AlertMessage != null)
+{
+    <script>
+        alert('@ViewBag.AlertMessage');
+    </script>
+}
+
 <div class="center row">
     <div class="card text-center col-6">
         <div class="card-body">
@@ -12,11 +19,11 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 @* 註冊 *@
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="Register-tab" data-bs-toggle="tab" data-bs-target="#Register" type="button" role="tab" aria-controls="Register" aria-selected="true">會員註冊</button>
+                    <button class="nav-link active" style="color:black;" id="Register-tab" data-bs-toggle="tab" data-bs-target="#Register" type="button" role="tab" aria-controls="Register" aria-selected="true">會員註冊</button>
                 </li>
                 @* 登入 *@
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="Login-tab" data-bs-toggle="tab" data-bs-target="#Login" type="button" role="tab" aria-controls="Login" aria-selected="false">會員登入</button>
+                    <button class="nav-link" style="color:black;" id="Login-tab" data-bs-toggle="tab" data-bs-target="#Login" type="button" role="tab" aria-controls="Login" aria-selected="false">會員登入</button>
                 </li>
             </ul>
             @* 分頁 *@
@@ -27,7 +34,7 @@
                 </div>
                 @* 登入 *@
                 <div class="tab-pane fade" id="Login" role="tabpanel" aria-labelledby="Login-tab">
-                    <partial name="_Login" />                    
+                    <partial name="_Login" />
                 </div>
             </div>
         </div>
@@ -35,10 +42,10 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
-<script>
 
 
-</script>
