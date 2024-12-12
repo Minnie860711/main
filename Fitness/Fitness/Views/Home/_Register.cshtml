@@ -1,0 +1,106 @@
+﻿@model Entity.Member.Member_DTO
+
+<div class="center row">
+    <div class="card text-center">
+        <form asp-action="Register" asp-controller="Home" 
+              id="form_Register"
+              data-ajax="true" data-ajax-method="Post"
+              data-ajax-begin="myaa_LoadingOn()" data-ajax-complete="myaa_LoadingOff()"
+              data-ajax-failure="myaa_ComFail()" data-ajax-success="Result_Register(data)">
+        <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-6">
+                        @* 會員名稱 *@
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        @* 照片 *@
+                        <div class="form-group">
+                            <label asp-for="Photo" class="control-label"></label>
+                            <input asp-for="Photo" type="file" class="form-control" />
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+                        @* 帳號 *@
+                        <div class="form-group">
+                            <label asp-for="Account" class="control-label"></label>
+                            <input asp-for="Account" class="form-control" />
+                            <span asp-validation-for="Account" class="text-danger"></span>
+                        </div>
+                        @* 密碼 *@
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        @* 確認密碼 *@
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        @* 生日 *@
+                        <div class="form-group">
+                            <label asp-for="Birthday" class="control-label"></label>
+                            <input asp-for="Birthday" class="form-control" />
+                            <span asp-validation-for="Birthday" class="text-danger"></span>
+                        </div>
+                        @* 身高 *@
+                        <div class="form-group">
+                            <label asp-for="Height" class="control-label"></label>
+                            <input asp-for="Height" class="form-control" />
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
+                        @* 生理性別 *@
+                        <div class="form-group form-check">
+                            <label asp-for="Gender" class="control-label"></label>
+                            <select asp-for="Gender" class="form-control">
+                                <option value="true">男</option>
+                                <option value="false">女</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        @* 目標體重 *@
+                        <div class="form-group">
+                            <label asp-for="Target_Weight" class="control-label"></label>
+                            <input asp-for="Target_Weight" class="form-control" />
+                            <span asp-validation-for="Target_Weight" class="text-danger"></span>
+                        </div>
+                        @* 預計達成日 *@
+                        <div class="form-group">
+                            <label asp-for="Target_Date" class="control-label"></label>
+                            <input asp-for="Target_Date" class="form-control" />
+                            <span asp-validation-for="Target_Date" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="memberID" class="control-label"></label>
+                    <input asp-for="memberID" class="form-control" />
+                    <span asp-validation-for="memberID" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Createtime" class="control-label"></label>
+                    <input asp-for="Createtime" class="form-control" />
+                    <span asp-validation-for="Createtime" class="text-danger"></span>
+                </div>
+                <div class="card-footer">
+                    @* <input type="submit" value="立即加入!" class="btn btn-enter" /> *@
+                    <Button type="submit" class="btn btn-primary" onclick="$(this).closest('form').find('._PageNumber').val(1)">
+                        <i class="fas fa-search" style="margin-right:5px"></i>立即加入
+                    </Button>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

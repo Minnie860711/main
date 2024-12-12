@@ -1,0 +1,13 @@
+{
+  // DbFirst指令
+  // 指令生成後，產生的DbContext檔案內會有一個「OnConfiguring」的Function，
+  // -Connection：依「appsettings.json」內的連線字串。
+  // -NoPluralize：不要生成複數名稱。
+  // -UseDatabaseNames：不要自動判斷名稱，讓名稱固定與資料庫相同。
+  // -OutputDir：Model的資料夾路徑。,
+  // -Tables：要指定的資料庫Table。
+  // -ContextDir：DbContext的資料夾路徑。,
+  // -Context：DbContext的檔案名稱。,
+  "DbFirstCommand": "Scaffold-DbContext -Connection 'Name=ConnectionStrings:Main_DB' Microsoft.EntityFrameworkCore.SqlServer -NoPluralize -UseDatabaseNames -ContextDir DbContextEF -Force -Context DbContext_Fitness -OutputDir Models"
+  // 【PS】DbContext內的「OnConfiguring」方法，要記得刪除或註解，因為該專案會使用DI注入的方式去處理DbContext。
+}
